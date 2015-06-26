@@ -191,7 +191,7 @@ public class ExpressionParser {
 	
 	public static void main (String [] args){
 		//log(100)3E7+7
-		String t = "3 mod 4";
+		String t = "sin ( neg 5656 pi / 2 )";
 		ArrayList<String> test = tokenize(t);
 		
 		try{

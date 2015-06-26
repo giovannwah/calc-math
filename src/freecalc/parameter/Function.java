@@ -60,9 +60,12 @@ public class Function implements Parameter{
 	 * @return true or false
 	 */
 	public static boolean isInteger(double d){
-		if (d % 1 == 0.0) return true; 
-		else if (d % 1 <= 0.0000000000001) return true; // close enough
-		else if (d % 1 >= 0.9999999999999) return true; // close enough
+		return (!Double.isInfinite(d) && d == Math.rint(d));
+	}
+	
+	public static boolean closeToInteger(double d){
+		if (d == Math.rint(d)) return true; 
+		else if (Math.abs(Math.abs(d) - Math.abs(Math.rint(d))) <= 0.0000000000001) return true;
 		else return false;
 	}
 	
@@ -72,17 +75,20 @@ public class Function implements Parameter{
 	 * @return true or false
 	 */
 	public static boolean underflow(double d){
-		if (Double.compare(-Double.MAX_VALUE, d) > 0) return true;
+		if (d > 0 && Double.compare(Double.MIN_VALUE, d) > 0) return true;
+		if (d < 0 && Double.compare(-Double.MIN_VALUE, d) < 0) return true;
 		else return false;
 	}
 	
 	/**
-	 * Returns true if the double value being observed is greater than Double.MAX_VALUE
+	 * Returns true if the double value being observed is greater than Double.MAX_VALUE or
+	 * less than -Double.MAX_VALUE.
 	 * @param d
 	 * @return true or false
 	 */
 	public static boolean overflow(double d){
 		if (Double.compare(Double.MAX_VALUE, d) < 0) return true;
+		if (Double.compare(-Double.MAX_VALUE, d) > 0) return true;
 		else return false;
 	}
 	

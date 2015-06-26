@@ -50,14 +50,18 @@ public class ScientificNotation extends Function{
 		}
 		if (!this.commutative){
 			double ret = 0;
-			ret = this.params[0].evaluate() * (Math.pow(10, this.params[1].evaluate()));
+			double d = this.params[1].evaluate();
+			if (!Function.isInteger(d)) throw new ExecutionException("ScientificNotation object must have an integer as its second argument.");
+			ret = this.params[0].evaluate() * (Math.pow(10, d));
 			if (Function.overflow(ret)) throw new OverflowException("ScientificNotation value is too large to be represented properly: "+ret);
 			else if (Function.underflow(ret)) throw new UnderflowException("ScientificNotation value is too small to be represented properly: "+ret);
 			else return ret;
 		}
 		else {
 			double ret = 0;
-			ret = this.params[1].evaluate() * (Math.pow(10, this.params[0].evaluate()));
+			double d = this.params[0].evaluate();
+			if (!Function.isInteger(d)) throw new ExecutionException("ScientificNotation object must have an integer as its second argument.");
+			ret = this.params[1].evaluate() * (Math.pow(10, d));
 			if (Function.overflow(ret)) throw new OverflowException("ScientificNotation value is too large to be represented properly: "+ret);
 			else if (Function.underflow(ret)) throw new UnderflowException("ScientificNotation value is too small to be represented properly: "+ret);
 			else return ret;
